@@ -1118,17 +1118,44 @@ else:
                     )
 
                 # ============================================
-                # BEFAST EMERGENCY OVERRIDE
+                # BEFAST RISK LEVEL
                 # ============================================
 
-                if befast_positive:
+                # BEFAST symptoms determine the final risk level:
+                # 0 symptoms  = keep ML-based risk level
+                # 1-2 symptoms = LOW
+                # 3 symptoms   = MEDIUM
+                # 4-5 symptoms = HIGH
+
+                if befast_count >= 4:
 
                     risk_level = "HIGH"
 
                     recommendation = (
-                        "BEFAST warning signs detected. "
-                        "Possible stroke symptoms require "
-                        "immediate medical attention."
+                        "High BEFAST symptom level detected. "
+                        "Multiple stroke warning signs are present. "
+                        "Immediate medical attention is recommended."
+                    )
+
+                elif befast_count == 3:
+
+                    risk_level = "MEDIUM"
+
+                    recommendation = (
+                        "Medium BEFAST symptom level detected. "
+                        "Multiple stroke warning signs are present. "
+                        "Medical evaluation is recommended."
+                    )
+
+                elif befast_count >= 1:
+
+                    risk_level = "LOW"
+
+                    recommendation = (
+                        "Low BEFAST symptom level detected. "
+                        "One or two stroke warning signs are present. "
+                        "Please monitor the symptoms carefully and "
+                        "consider medical evaluation."
                     )
 
                 # ============================================
